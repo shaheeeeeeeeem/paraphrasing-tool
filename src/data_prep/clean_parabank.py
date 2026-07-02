@@ -21,7 +21,7 @@ import sys
 # ---- Locked-in filtering rules ------------------------------------------
 
 SCORE_MIN = 0.02
-SCORE_MAX = 0.08
+SCORE_MAX = 0.1
 
 WORD_COUNT_MIN = 6
 WORD_COUNT_MAX = 40
@@ -122,6 +122,7 @@ def main():
     parser = argparse.ArgumentParser(description="Filter ParaBank v2 down to clean (reference, paraphrase_1) pairs.")
     parser.add_argument("--input", default="data/raw/parabank2.tsv", help="Path to raw ParaBank v2 TSV file")
     parser.add_argument("--output", default="data/processed/parabank_filtered.tsv", help="Path to write filtered pairs")
+    parser.add_argument("--limit", type=int, default=None, help="Stop after this many rows are KEPT (not lines read). Useful for quick tests against the full file without waiting for a full pass.")
     args = parser.parse_args()
 
     lines_read = 0
@@ -141,6 +142,10 @@ def main():
                 score, reference, paraphrase_1 = result
                 writer.writerow([score, reference, paraphrase_1])
                 rows_kept += 1
+
+                if args.limit is not None and rows_kept >= args.limit:
+                    print(f"[stopped] hit --limit of {args.limit:,} kept rows after {lines_read:,} lines read", file=sys.stderr)
+                    break
 
             if lines_read % PROGRESS_EVERY == 0:
                 print(f"[progress] lines read: {lines_read:,} | rows kept: {rows_kept:,}", file=sys.stderr)

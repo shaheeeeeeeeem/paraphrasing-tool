@@ -24,3 +24,9 @@ Thumbs.db
 
 # Environment / secrets
 .env
+
+# Large ParaBank-derived datasets - keep locally, never commit
+data/processed/parabank_filtered.tsv
+data/processed/parabank_cleaned_pool.tsv
+data/processed/parabank_working_sample.tsv
+data/processed/parabank_labeled.tsv
