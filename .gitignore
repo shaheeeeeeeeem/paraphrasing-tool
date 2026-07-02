@@ -1,0 +1,26 @@
+# Data (large, regenerable via scripts in src/data_prep/)
+data/raw/
+
+# Model checkpoints (large, gitignored per project spec)
+checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment / secrets
+.env
