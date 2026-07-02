@@ -212,3 +212,20 @@ pip install -r requirements.txt
 Large data files and model checkpoints are gitignored — see `data/README.md`
 for how to regenerate the dataset pipeline from scratch, and
 `docs/project-summary.md` for the full architecture/decisions log.
+
+## Data Attribution
+
+This project's training data is derived from **ParaBank 2**:
+
+> J. Edward Hu, Abhinav Singh, Nils Holzenberger, Matt Post, and Benjamin Van Durme. 2019.
+> *Large-Scale, Diverse, Paraphrastic Bitexts via Sampling and Clustering.*
+> In Proceedings of the 23rd Conference on Computational Natural Language Learning (CoNLL), pages 44–54.
+> https://aclanthology.org/K19-1005/
+
+**Changes made to the original data**: the raw ~19.72M-line corpus was filtered to a
+0.02–0.10 dual-condition score range with heuristic quality filters (7,738,958 rows),
+deduplicated and cleaned (~7.34M-row pool), randomly sampled (500k working sample),
+labeled for formality/politeness via classifier inference, and balanced to a final
+200,001-row set (66,667 rows per style). Only `paraphrase_1` from each original row
+is used; `paraphrase_2`–`paraphrase_5` are discarded. See `data/README.md` for full
+pipeline details.
